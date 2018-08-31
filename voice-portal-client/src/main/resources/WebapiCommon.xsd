@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema targetNamespace="http://www.twc.com/BPS/WebService"
+           elementFormDefault="qualified" attributeFormDefault="unqualified"
+           xmlns="http://www.twc.com/BPS/WebService"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <xs:annotation>
+  <xs:appinfo>
+   <globalBindings generateIsSetMethod="true">
+    <serializable uid="1"/>
+   </globalBindings>
+  </xs:appinfo>
+ </xs:annotation>
+ <xs:element name="AbstractObjectList">
+  <xs:complexType>
+   <xs:sequence>
+    <xs:element ref="AbstractObject" minOccurs="0" maxOccurs="unbounded"/>
+   </xs:sequence>
+  </xs:complexType>
+ </xs:element>
+ <xs:element name="AbstractObject" type="AbstractObject"></xs:element>
+ <xs:complexType name="AbstractObject">
+  <xs:annotation>
+   <xs:documentation>Final Object</xs:documentation>
+  </xs:annotation>
+  <xs:sequence>
+   <xs:element name="prop" type="Property" minOccurs="0" maxOccurs="unbounded"/>
+   <xs:element name="object" type="AbstractObject" minOccurs="0"
+               maxOccurs="unbounded"/>
+   <xs:element name="respCode" type="ResponseCode" minOccurs="0"/>
+   <xs:element name="respDescription" type="Description" minOccurs="0"/>
+  </xs:sequence>
+  <xs:attribute name="name" type="PropertyName" use="required"/>
+  <xs:attribute name="value" type="PropertyValue" use="optional"/>
+ </xs:complexType>
+ <xs:simpleType name="Action">
+  <xs:annotation>
+   <xs:documentation>Defines the action that can be performed on web service</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="2"/>
+   <xs:maxLength value="64"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="AddressType">
+  <xs:annotation>
+   <xs:documentation>Defines the type of address</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="2"/>
+   <xs:maxLength value="16"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="Code">
+  <xs:annotation>
+   <xs:documentation>Service code</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:maxLength value="16"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="Description">
+  <xs:annotation>
+   <xs:documentation>Defines the Description for Service code and Response code.
+                     When used in service object, it should deinfe the
+                     descrition of the service code. When used in response
+                     message, it should define the description of the response
+                     code.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:maxLength value="255"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="Instance">
+  <xs:annotation>
+   <xs:documentation>Defines instance name.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="64"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:complexType name="Property">
+  <xs:annotation>
+   <xs:documentation>it contains the attributes name/value for a request</xs:documentation>
+  </xs:annotation>
+  <xs:attribute name="name" type="PropertyName" use="required"/>
+  <xs:attribute name="value" type="PropertyValue" use="optional"/>
+  <xs:attribute name="type" type="PropertyType" use="optional"/>
+ </xs:complexType>
+ <xs:simpleType name="PropertyName">
+  <xs:annotation>
+   <xs:documentation>Property name.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="64"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="PropertyValue">
+  <xs:annotation>
+   <xs:documentation>Property value.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="0"/>
+   <xs:maxLength value="256"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="PropertyType">
+  <xs:annotation>
+   <xs:documentation>Property type</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="20"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="ResourceName">
+  <xs:annotation>
+   <xs:documentation>Resource name.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="64"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="ResourceUrl">
+  <xs:annotation>
+   <xs:documentation>Resource name.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="64"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="ResponseCode">
+  <xs:annotation>
+   <xs:documentation>Response code returned in provisioning Response message.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="5"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="Role">
+  <xs:annotation>
+   <xs:documentation>Role</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="16"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="SourceID">
+  <xs:annotation>
+   <xs:documentation>Identifies the source of the provisioning request or
+                     provisioning response. i.e. ICOMS or CSG or Ocenaic etc.
+                     SourceID should be used for logging purpose only.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="32"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="TransactionID">
+  <xs:annotation>
+   <xs:documentation>TransactionID indicates an unique ID for the transaction.
+                     TransactionID is part of each provisiong service request
+                     and will be returned in response.</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="5"/>
+   <xs:maxLength value="64"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="Type">
+  <xs:annotation>
+   <xs:documentation>Differents Type</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="16"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="ServiceUID">
+  <xs:annotation>
+   <xs:documentation>Service unique identifier</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="1"/>
+   <xs:maxLength value="64"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="CorrelationId">
+  <xs:annotation>
+   <xs:documentation>The globally unique request correlation id, used for
+                     asynchronous requests</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="2"/>
+   <xs:maxLength value="64"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="CallbackLocation">
+  <xs:annotation>
+   <xs:documentation>The callback location, where the asynchronous response
+                     should be delivered to</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:minLength value="2"/>
+   <xs:maxLength value="1024"/>
+  </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="RequestMode">
+  <xs:annotation>
+   <xs:documentation>The mode of the request</xs:documentation>
+  </xs:annotation>
+  <xs:restriction base="xs:string">
+   <xs:whiteSpace value="collapse"/>
+   <xs:enumeration value="asynchronous"/>
+   <xs:enumeration value="synchronous"/>
+  </xs:restriction>
+ </xs:simpleType>
+</xs:schema>

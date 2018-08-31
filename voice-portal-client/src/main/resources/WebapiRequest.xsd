@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema targetNamespace="http://www.twc.com/BPS/WebService"
+           elementFormDefault="qualified" attributeFormDefault="unqualified"
+           xmlns:webapi="http://www.twc.com/BPS/WebService"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:appinfo>
+      <globalBindings generateIsSetMethod="true">
+        <serializable uid="1"/>
+      </globalBindings>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:include schemaLocation="WebapiCommon.xsd"/>
+  <xs:element name="webapiRequest" type="webapi:WebapiRequest"/>
+  <xs:complexType name="WebapiRequest">
+    <xs:annotation>
+      <xs:documentation>Defines the request object that contain the webapi
+                        service information.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="arguments" type="webapi:Arguments"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0"
+              maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="action" type="webapi:Action" use="required"/>
+    <xs:attribute name="clientId" type="webapi:SourceID" use="required"/>
+    <xs:attribute name="transId" type="webapi:TransactionID" use="required"/>
+    <xs:attribute name="isPBI" type="xs:string"/>
+    <xs:anyAttribute namespace="##other" processContents="skip"/>
+  </xs:complexType>
+  <xs:complexType name="Arguments">
+    <xs:annotation>
+      <xs:documentation>Webapi request arguments</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="arg" type="webapi:Property" minOccurs="0"
+                  maxOccurs="unbounded"/>
+      <xs:element name="object" type="webapi:AbstractObject" minOccurs="0"
+                  maxOccurs="unbounded"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0"
+              maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

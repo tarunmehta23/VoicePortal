@@ -1,0 +1,156 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:webapi="http://www.twc.com/BPS/WebService" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:jms="http://www.openuri.org/2002/04/wsdl/jms/" xmlns:conv="http://www.openuri.org/2002/04/soap/conversation/" xmlns:web="http://www.twc.com/BPS/sWebAPI" xmlns:cw="http://www.openuri.org/2002/04/wsdl/conversation/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://www.twc.com/BPS/sWebAPI">
+<documentation>
+<abstractWSDL>
+http://bpsdev4-bps3-pr-app-01.eng.rr.com:7001/soa-infra/services/DP/WebAPIService!1.0/apps/BPS/Common/wsdl/WebAPI.wsdl
+</abstractWSDL>
+</documentation>
+<wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" wsu:Id="wsaddr_policy">
+<wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+</wsp:Policy>
+<wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" wsu:Id="wss_username_token_service_policy">
+<sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+<wsp:Policy>
+<sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+<wsp:Policy>
+<sp:WssUsernameToken10/>
+</wsp:Policy>
+</sp:UsernameToken>
+</wsp:Policy>
+</sp:SupportingTokens>
+</wsp:Policy>
+<types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.twc.com/BPS/WebService" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://www.twc.com/BPS/WebService" schemaLocation="WebapiRequest.xsd"/>
+<import namespace="http://www.twc.com/BPS/WebService" schemaLocation="WebapiResponse.xsd"/>
+</schema>
+<s:schema elementFormDefault="qualified" targetNamespace="http://www.openuri.org/2002/04/soap/conversation/">
+<s:element name="StartHeader" type="conv:StartHeader"/>
+<s:element name="ContinueHeader" type="conv:ContinueHeader"/>
+<s:element name="CallbackHeader" type="conv:CallbackHeader"/>
+<s:complexType name="StartHeader">
+<s:sequence>
+<s:element minOccurs="0" maxOccurs="1" name="conversationID" type="s:string"/>
+<s:element minOccurs="0" maxOccurs="1" name="callbackLocation" type="s:string"/>
+</s:sequence>
+</s:complexType>
+<s:complexType name="ContinueHeader">
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="conversationID" type="s:string"/>
+</s:sequence>
+</s:complexType>
+<s:complexType name="CallbackHeader">
+<s:sequence>
+<s:element minOccurs="1" maxOccurs="1" name="conversationID" type="s:string"/>
+</s:sequence>
+</s:complexType>
+</s:schema>
+<s:schema xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:webapi="http://www.twc.com/BPS/WebService" elementFormDefault="qualified" targetNamespace="http://www.twc.com/BPS/sWebAPI">
+<s:import namespace="http://www.twc.com/BPS/WebService"/>
+<s:element name="request">
+<s:complexType>
+<s:sequence>
+<s:element ref="webapi:webapiRequest"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="requestResponse">
+<s:complexType>
+<s:sequence>
+<s:element ref="webapi:webapiResponse"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="startAsyncRequest">
+<s:complexType>
+<s:sequence>
+<s:element ref="webapi:webapiRequest"/>
+</s:sequence>
+</s:complexType>
+</s:element>
+<s:element name="startAsyncRequestResponse">
+<s:complexType>
+<s:sequence/>
+</s:complexType>
+</s:element>
+</s:schema>
+</types>
+<message name="requestSoapIn">
+<part name="parameters" element="web:request"/>
+</message>
+<message name="requestSoapOut">
+<part name="parameters" element="web:requestResponse"/>
+</message>
+<message name="startAsyncRequestSoapIn">
+<part name="parameters" element="web:startAsyncRequest"/>
+</message>
+<message name="startAsyncRequestSoapOut">
+<part name="parameters" element="web:startAsyncRequestResponse"/>
+</message>
+<message name="requestResponseSoapIn">
+<part name="parameters" element="web:requestResponse"/>
+</message>
+<message name="StartHeader_literal">
+<part name="StartHeader" element="conv:StartHeader"/>
+</message>
+<message name="CallbackHeader_literal">
+<part name="CallbackHeader" element="conv:CallbackHeader"/>
+</message>
+<portType name="WebAPIServiceSoap">
+<operation name="request">
+<input message="web:requestSoapIn"/>
+<output message="web:requestSoapOut"/>
+</operation>
+<operation name="startAsyncRequest">
+<input message="web:startAsyncRequestSoapIn"/>
+<output message="web:startAsyncRequestSoapOut"/>
+</operation>
+</portType>
+<portType name="WebAPIServiceSoapCallback">
+<operation name="requestResponse">
+<input message="web:requestResponseSoapIn"/>
+</operation>
+</portType>
+<binding name="WebAPIServiceSoap" type="web:WebAPIServiceSoap">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wss_username_token_service_policy" wsdl:required="false"/>
+<wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wsaddr_policy" wsdl:required="false"/>
+<operation name="request">
+<soap:operation style="document" soapAction="http://www.twc.com/BPS/sWebAPI/request"/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="startAsyncRequest">
+<soap:operation style="document" soapAction="http://www.twc.com/BPS/sWebAPI/startAsyncRequest"/>
+<input>
+<soap:header wsdl:required="true" message="web:StartHeader_literal" part="StartHeader" use="literal"/>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+</binding>
+
+<binding name="WebAPIServiceSoapCallback" type="web:WebAPIServiceSoapCallback" >
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+<operation name="requestResponse">
+<soap:operation style="document" soapAction="http://www.twc.com/BPS/sWebAPI/requestResponse"/>
+<input>
+<soap:header wsdl:required="true" message="web:CallbackHeader_literal" part="CallbackHeader" use="literal"/>
+<soap:body use="literal"/>
+</input>
+</operation>
+</binding>
+<service name="WebAPIMediator_ep">
+<port name="WebAPIServiceSoapCallback_pt" binding="web:WebAPIServiceSoapCallback">
+<soap:address location="http://localhost:7001/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep"/>
+</port>
+<port name="WebAPIServiceSoap_pt" binding="web:WebAPIServiceSoap">
+<soap:address location="http://localhost:7001/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep"/>
+</port>
+</service>
+</definitions>

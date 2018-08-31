@@ -1,0 +1,55 @@
+server:
+  port: 8070
+  contextPath: /voice-portal-service
+  
+spectrum-core:
+   get-spc-account-division:
+      url : https://XXXXX/spectrum-core/services/account/ept/getSpcAccountDivisionV1x0
+      system-id: Gateway
+
+dsb:
+  url: https://xxxxxxxxx.rr.com
+  
+bps:
+  clientId: VoiceZone
+  instances:
+    -
+      siteIds: [CTX,ELP,GTW,HOT,HOU,NTX,RGV,SAT,STX,SWW]
+      webApiUrl: https://XXXXX/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep
+      user : XXX
+      password: XXX
+    - 
+      siteIds: [CAK,CMH,CVG,INS,KYA,KYN,MKE,NEW]
+      webApiUrl: https://XXXXX/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep
+      user : XXX
+      password: XXX
+    -
+      siteIds: [LNK,MKC,NAT,NMW,NSE]
+      webApiUrl: https://XXXXX/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep
+      user : XXX
+      password: XXX
+    - 
+      siteIds:  [BER,LBT,NYC,STI]
+      webApiUrl: https://XXXXX/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep
+      user : XXX
+      password: XXX
+    -
+      siteIds: [HNL,LXM,PLM,SAN]
+      webApiUrl:  https://XXXXX/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep
+      user : XXX
+      password: XXX
+    -
+      siteIds: [CAR]
+      webApiUrl:  https://XXXXX/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep
+      user : XXX
+      password: XXX
+    -
+      siteIds: [BGM,BUF,NEN,NER,PTL,ROC,SYR]
+      webApiUrl:  https://XXXXX/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep
+      user :  XXX
+      password: XXX
+    -
+      siteIds: [BAK,BHM,BHN,DTW,ELM,EUF,ORL,PAN,TPA]
+      webApiUrl: https://XXXXX/soa-infra/services/DP/WebAPIService/WebAPIMediator_ep
+      user : XXX
+      password: XXX
